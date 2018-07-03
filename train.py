@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Jun 17 19:08:39 2018
+Created on Sun Jun 17 2018
 
 @author: Ashish Kumar
 """
@@ -197,7 +197,7 @@ quitWindow = tk.Button(window, text="Quit", command=window.destroy)
 quitWindow.place(x=253, y=100)
 copyWrite = tk.Text(window, background=window.cget("background"), borderwidth=0,)
 copyWrite.tag_configure("superscript", offset=4)
-copyWrite.insert("insert", "Developed by AK","", "TEAM", "superscript")
+copyWrite.insert("insert", "Developed by ASHISH","", "TEAM", "superscript")
 copyWrite.configure(state="disabled")
 copyWrite.pack(side="top")
 copyWrite.place(x=75, y=150)
