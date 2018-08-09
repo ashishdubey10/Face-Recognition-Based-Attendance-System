@@ -6,6 +6,7 @@ Created on Sun Jun 17 2018
 """
 
 import tkinter as tk
+from tkinter import Message ,Text
 import cv2,os
 import shutil
 import csv
@@ -20,6 +21,10 @@ import tkinter.font as font
 window = tk.Tk()
 #helv36 = tk.Font(family='Helvetica', size=36, weight='bold')
 window.title("Face_Recogniser")
+
+dialog_title = 'QUIT'
+dialog_text = 'Are you sure?'
+#answer = messagebox.askquestion(dialog_title, dialog_text)
  
 #window.geometry('1280x720')
 window.configure(background='blue')
@@ -48,33 +53,40 @@ window.grid_columnconfigure(0, weight=1)
 # Add a PhotoImage to the Canvas
 #canvas.create_image(0, 0, image=photo, anchor=tk.NW)
 
-message = tk.Label(window, text="Face-Recognition-Based-Attendance-Management-System" ,bg="Green"  ,fg="white"  ,width=50  ,height=4) 
-message.place(x=450, y=50)
+#msg = Message(window, text='Hello, world!')
 
-lbl = tk.Label(window, text="Enter ID",width=20  ,height=2  ,fg="red"  ,bg="yellow"  ) 
+# Font is a tuple of (font_family, size_in_points, style_modifier_string)
+
+
+
+message = tk.Label(window, text="Face-Recognition-Based-Attendance-Management-System" ,bg="Green"  ,fg="white"  ,width=50  ,height=3,font=('times', 30, 'italic bold underline')) 
+
+message.place(x=200, y=20)
+
+lbl = tk.Label(window, text="Enter ID",width=20  ,height=2  ,fg="red"  ,bg="yellow" ,font=('times', 15, ' bold ') ) 
 lbl.place(x=400, y=200)
 
-txt = tk.Entry(window,width=20  ,bg="yellow"  ,fg="red")
-txt.place(x=600, y=200)
+txt = tk.Entry(window,width=20  ,bg="yellow" ,fg="red",font=('times', 15, ' bold '))
+txt.place(x=700, y=215)
 
-lbl2 = tk.Label(window, text="Enter Name",width=20  ,fg="red"  ,bg="yellow"    ,height=2) 
-lbl2.place(x=400, y=250)
+lbl2 = tk.Label(window, text="Enter Name",width=20  ,fg="red"  ,bg="yellow"    ,height=2 ,font=('times', 15, ' bold ')) 
+lbl2.place(x=400, y=300)
 
-txt2 = tk.Entry(window,width=20  ,bg="yellow"  ,fg="red"  )
-txt2.place(x=600, y=250)
+txt2 = tk.Entry(window,width=20  ,bg="yellow"  ,fg="red",font=('times', 15, ' bold ')  )
+txt2.place(x=700, y=315)
 
-lbl3 = tk.Label(window, text="Notification : ",width=20  ,fg="red"  ,bg="yellow"  ,height=2) 
-lbl3.place(x=400, y=320)
+lbl3 = tk.Label(window, text="Notification : ",width=20  ,fg="red"  ,bg="yellow"  ,height=2 ,font=('times', 15, ' bold underline ')) 
+lbl3.place(x=400, y=400)
 
-message = tk.Label(window, text="" ,bg="yellow"  ,fg="red"  ,width=30  ,height=2, activebackground = "yellow") 
-message.place(x=600, y=320)
+message = tk.Label(window, text="" ,bg="yellow"  ,fg="red"  ,width=30  ,height=2, activebackground = "yellow" ,font=('times', 15, ' bold ')) 
+message.place(x=700, y=400)
 
-lbl3 = tk.Label(window, text="Attendance : ",width=20  ,fg="red"  ,bg="yellow"  ,height=2) 
-lbl3.place(x=350, y=500)
+lbl3 = tk.Label(window, text="Attendance : ",width=20  ,fg="red"  ,bg="yellow"  ,height=2 ,font=('times', 15, ' bold  underline')) 
+lbl3.place(x=400, y=650)
 
 
-message2 = tk.Label(window, text="" ,fg="red"   ,bg="yellow",highlightbackground = "yellow",width=20  ,height=2 ) 
-message2.place(x=600, y=500)
+message2 = tk.Label(window, text="" ,fg="red"   ,bg="yellow",activeforeground = "green",width=30  ,height=2  ,font=('times', 15, ' bold ')) 
+message2.place(x=700, y=650)
  
 def clear():
     txt.delete(0, 'end')    
@@ -226,23 +238,23 @@ def TrackImages():
     message2.configure(text= res)
 
   
-clearButton = tk.Button(window, text="Clear", command=clear  ,fg="red"  ,bg="yellow"  ,width=20  ,height=2 ,highlightbackground="pink", activebackground = "Red")
-clearButton.place(x=800, y=200)
-clearButton2 = tk.Button(window, text="Clear", command=clear2  ,fg="red"  ,bg="yellow"  ,width=20  ,height=2, activebackground = "Red")
-clearButton2.place(x=800, y=250)    
-takeImg = tk.Button(window, text="Take Images", command=TakeImages  ,fg="red"  ,bg="yellow"  ,width=20  ,height=3, activebackground = "Red")
-takeImg.place(x=350, y=400)
-trainImg = tk.Button(window, text="Train Images", command=TrainImages  ,fg="red"  ,bg="yellow"  ,width=20  ,height=3, activebackground = "Red")
-trainImg.place(x=600, y=400)
-trackImg = tk.Button(window, text="Track Images", command=TrackImages  ,fg="red"  ,bg="yellow"  ,width=20  ,height=3, activebackground = "Red")
-trackImg.place(x=850, y=400)
-quitWindow = tk.Button(window, text="Quit", command=window.destroy  ,fg="red"  ,bg="yellow"  ,width=20  ,height=3, activebackground = "Red")
-quitWindow.place(x=1100, y=400)
-copyWrite = tk.Text(window, background=window.cget("background"), borderwidth=0,)
+clearButton = tk.Button(window, text="Clear", command=clear  ,fg="red"  ,bg="yellow"  ,width=20  ,height=2 ,activebackground = "Red" ,font=('times', 15, ' bold '))
+clearButton.place(x=950, y=200)
+clearButton2 = tk.Button(window, text="Clear", command=clear2  ,fg="red"  ,bg="yellow"  ,width=20  ,height=2, activebackground = "Red" ,font=('times', 15, ' bold '))
+clearButton2.place(x=950, y=300)    
+takeImg = tk.Button(window, text="Take Images", command=TakeImages  ,fg="red"  ,bg="yellow"  ,width=20  ,height=3, activebackground = "Red" ,font=('times', 15, ' bold '))
+takeImg.place(x=200, y=500)
+trainImg = tk.Button(window, text="Train Images", command=TrainImages  ,fg="red"  ,bg="yellow"  ,width=20  ,height=3, activebackground = "Red" ,font=('times', 15, ' bold '))
+trainImg.place(x=500, y=500)
+trackImg = tk.Button(window, text="Track Images", command=TrackImages  ,fg="red"  ,bg="yellow"  ,width=20  ,height=3, activebackground = "Red" ,font=('times', 15, ' bold '))
+trackImg.place(x=800, y=500)
+quitWindow = tk.Button(window, text="Quit", command=window.destroy  ,fg="red"  ,bg="yellow"  ,width=20  ,height=3, activebackground = "Red" ,font=('times', 15, ' bold '))
+quitWindow.place(x=1100, y=500)
+copyWrite = tk.Text(window, background=window.cget("background"), borderwidth=0,font=('times', 30, 'italic bold underline'))
 copyWrite.tag_configure("superscript", offset=10)
 copyWrite.insert("insert", "Developed by Ashish","", "TEAM", "superscript")
 copyWrite.configure(state="disabled",fg="red"  )
 copyWrite.pack(side="left")
-copyWrite.place(x=1100, y=750)
+copyWrite.place(x=800, y=750)
  
 window.mainloop()
