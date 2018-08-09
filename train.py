@@ -239,18 +239,10 @@ trackImg.place(x=850, y=400)
 quitWindow = tk.Button(window, text="Quit", command=window.destroy  ,fg="red"  ,bg="yellow"  ,width=20  ,height=3, activebackground = "Red")
 quitWindow.place(x=1100, y=400)
 copyWrite = tk.Text(window, background=window.cget("background"), borderwidth=0,)
-<<<<<<< HEAD
 copyWrite.tag_configure("superscript", offset=10)
 copyWrite.insert("insert", "Developed by Ashish","", "TEAM", "superscript")
 copyWrite.configure(state="disabled",fg="red"  )
 copyWrite.pack(side="left")
 copyWrite.place(x=1100, y=750)
-=======
-copyWrite.tag_configure("superscript", offset=4)
-copyWrite.insert("insert", "Developed by ASHISH","", "TEAM", "superscript")
-copyWrite.configure(state="disabled")
-copyWrite.pack(side="top")
-copyWrite.place(x=75, y=150)
->>>>>>> a63e8c3dcb7aeb2b81e0c348727089c565389a57
  
 window.mainloop()
