@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Jun 17 19:08:39 2018
+Created on Sun Jun 17 2018
 
 @author: Ashish Kumar
 """
@@ -10,31 +10,71 @@ import cv2,os
 import shutil
 import csv
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageTk
 import pandas as pd
 import datetime
 import time
+import tkinter.ttk as ttk
+import tkinter.font as font
 
 window = tk.Tk()
-
-window.title("Work place")
+#helv36 = tk.Font(family='Helvetica', size=36, weight='bold')
+window.title("Face_Recogniser")
  
-window.geometry('300x200')
- 
-lbl = tk.Label(window, text="Enter ID",width=10) 
-lbl.place(x=3, y=5)
+#window.geometry('1280x720')
+window.configure(background='blue')
 
-txt = tk.Entry(window,width=10)
-txt.place(x=80, y=5)
+#window.attributes('-fullscreen', True)
 
-lbl2 = tk.Label(window, text="Enter Name",width=10) 
-lbl2.place(x=3, y=30)
+window.grid_rowconfigure(0, weight=1)
+window.grid_columnconfigure(0, weight=1)
 
-txt2 = tk.Entry(window,width=10)
-txt2.place(x=80, y=30)
+#path = "profile.jpg"
 
-message = tk.Label(window, text="") 
-message.place(x=3, y=60)
+#Creates a Tkinter-compatible photo image, which can be used everywhere Tkinter expects an image object.
+#img = ImageTk.PhotoImage(Image.open(path))
+
+#The Label widget is a standard Tkinter widget used to display a text or image on the screen.
+#panel = tk.Label(window, image = img)
+
+
+#panel.pack(side = "left", fill = "y", expand = "no")
+
+#cv_img = cv2.imread("img541.jpg")
+#x, y, no_channels = cv_img.shape
+#canvas = tk.Canvas(window, width = x, height =y)
+#canvas.pack(side="left")
+#photo = PIL.ImageTk.PhotoImage(image = PIL.Image.fromarray(cv_img)) 
+# Add a PhotoImage to the Canvas
+#canvas.create_image(0, 0, image=photo, anchor=tk.NW)
+
+message = tk.Label(window, text="Face-Recognition-Based-Attendance-Management-System" ,bg="Green"  ,fg="white"  ,width=50  ,height=4) 
+message.place(x=450, y=50)
+
+lbl = tk.Label(window, text="Enter ID",width=20  ,height=2  ,fg="red"  ,bg="yellow"  ) 
+lbl.place(x=400, y=200)
+
+txt = tk.Entry(window,width=20  ,bg="yellow"  ,fg="red")
+txt.place(x=600, y=200)
+
+lbl2 = tk.Label(window, text="Enter Name",width=20  ,fg="red"  ,bg="yellow"    ,height=2) 
+lbl2.place(x=400, y=250)
+
+txt2 = tk.Entry(window,width=20  ,bg="yellow"  ,fg="red"  )
+txt2.place(x=600, y=250)
+
+lbl3 = tk.Label(window, text="Notification : ",width=20  ,fg="red"  ,bg="yellow"  ,height=2) 
+lbl3.place(x=400, y=320)
+
+message = tk.Label(window, text="" ,bg="yellow"  ,fg="red"  ,width=30  ,height=2, activebackground = "yellow") 
+message.place(x=600, y=320)
+
+lbl3 = tk.Label(window, text="Attendance : ",width=20  ,fg="red"  ,bg="yellow"  ,height=2) 
+lbl3.place(x=350, y=500)
+
+
+message2 = tk.Label(window, text="" ,fg="red"   ,bg="yellow",highlightbackground = "yellow",width=20  ,height=2 ) 
+message2.place(x=600, y=500)
  
 def clear():
     txt.delete(0, 'end')    
@@ -78,15 +118,15 @@ def TakeImages():
                 cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)        
                 #incrementing sample number 
                 sampleNum=sampleNum+1
-                #saving the captured face in the dataset folder
+                #saving the captured face in the dataset folder TrainingImage
                 cv2.imwrite("TrainingImage\ "+name +"."+Id +'.'+ str(sampleNum) + ".jpg", gray[y:y+h,x:x+w])
                 #display the frame
                 cv2.imshow('frame',img)
             #wait for 100 miliseconds 
             if cv2.waitKey(100) & 0xFF == ord('q'):
                 break
-            # break if the sample number is morethan 20
-            elif sampleNum>100:
+            # break if the sample number is morethan 100
+            elif sampleNum>60:
                 break
         cam.release()
         cv2.destroyAllWindows() 
@@ -112,7 +152,7 @@ def TrainImages():
     faces,Id = getImagesAndLabels("TrainingImage")
     recognizer.train(faces, np.array(Id))
     recognizer.save("TrainingImageLabel\Trainner.yml")
-    res = "Image Trained for id : "+",".join(str(f) for f in Id)
+    res = "Image Trained"#+",".join(str(f) for f in Id)
     message.configure(text= res)
 
 def getImagesAndLabels(path):
@@ -181,25 +221,28 @@ def TrackImages():
     attendance.to_csv(fileName,index=False)
     cam.release()
     cv2.destroyAllWindows()
-    print(attendance)
+    #print(attendance)
+    res=attendance
+    message2.configure(text= res)
+
   
-clearButton = tk.Button(window, text="Clear", command=clear)
-clearButton.place(x=150, y=0)
-clearButton2 = tk.Button(window, text="Clear", command=clear2)
-clearButton2.place(x=150, y=30)    
-takeImg = tk.Button(window, text="Take Images", command=TakeImages)
-takeImg.place(x=3, y=100)
-trainImg = tk.Button(window, text="Train Images", command=TrainImages)
-trainImg.place(x=83, y=100)
-trackImg = tk.Button(window, text="Track Images", command=TrackImages)
-trackImg.place(x=166, y=100)
-quitWindow = tk.Button(window, text="Quit", command=window.destroy)
-quitWindow.place(x=253, y=100)
+clearButton = tk.Button(window, text="Clear", command=clear  ,fg="red"  ,bg="yellow"  ,width=20  ,height=2 ,highlightbackground="pink", activebackground = "Red")
+clearButton.place(x=800, y=200)
+clearButton2 = tk.Button(window, text="Clear", command=clear2  ,fg="red"  ,bg="yellow"  ,width=20  ,height=2, activebackground = "Red")
+clearButton2.place(x=800, y=250)    
+takeImg = tk.Button(window, text="Take Images", command=TakeImages  ,fg="red"  ,bg="yellow"  ,width=20  ,height=3, activebackground = "Red")
+takeImg.place(x=350, y=400)
+trainImg = tk.Button(window, text="Train Images", command=TrainImages  ,fg="red"  ,bg="yellow"  ,width=20  ,height=3, activebackground = "Red")
+trainImg.place(x=600, y=400)
+trackImg = tk.Button(window, text="Track Images", command=TrackImages  ,fg="red"  ,bg="yellow"  ,width=20  ,height=3, activebackground = "Red")
+trackImg.place(x=850, y=400)
+quitWindow = tk.Button(window, text="Quit", command=window.destroy  ,fg="red"  ,bg="yellow"  ,width=20  ,height=3, activebackground = "Red")
+quitWindow.place(x=1100, y=400)
 copyWrite = tk.Text(window, background=window.cget("background"), borderwidth=0,)
-copyWrite.tag_configure("superscript", offset=4)
-copyWrite.insert("insert", "Developed by AK","", "TEAM", "superscript")
-copyWrite.configure(state="disabled")
-copyWrite.pack(side="top")
-copyWrite.place(x=75, y=150)
+copyWrite.tag_configure("superscript", offset=10)
+copyWrite.insert("insert", "Developed by Ashish","", "TEAM", "superscript")
+copyWrite.configure(state="disabled",fg="red"  )
+copyWrite.pack(side="left")
+copyWrite.place(x=1100, y=750)
  
 window.mainloop()
