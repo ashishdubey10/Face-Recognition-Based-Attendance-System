@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Sun Jun 17 2018
 
-@author: Ashish Kumar
-"""
 
 import tkinter as tk
 from tkinter import Message ,Text
@@ -123,7 +119,7 @@ def TakeImages():
         detector=cv2.CascadeClassifier(harcascadePath)
         sampleNum=0
         while(True):
-            ret, img = cam.read()
+            _ret, img = cam.read()
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             faces = detector.detectMultiScale(gray, 1.3, 5)
             for (x,y,w,h) in faces:
@@ -131,9 +127,10 @@ def TakeImages():
                 #incrementing sample number 
                 sampleNum=sampleNum+1
                 #saving the captured face in the dataset folder TrainingImage
-                cv2.imwrite("TrainingImage\ "+name +"."+Id +'.'+ str(sampleNum) + ".jpg", gray[y:y+h,x:x+w])
+                cv2.imwrite("TrainingImage\\ "+name +"."+Id +'.'+ str(sampleNum) + ".jpg", gray[y:y+h,x:x+w])
+              
                 #display the frame
-                cv2.imshow('frame',img)
+                cv2.imshow('frame',img) 
             #wait for 100 miliseconds 
             if cv2.waitKey(100) & 0xFF == ord('q'):
                 break
@@ -144,7 +141,7 @@ def TakeImages():
         cv2.destroyAllWindows() 
         res = "Images Saved for ID : " + Id +" Name : "+ name
         row = [Id , name]
-        with open('StudentDetails\StudentDetails.csv','a+') as csvFile:
+        with open('StudentDetails\\StudentDetails.csv','a+') as csvFile:
             writer = csv.writer(csvFile)
             writer.writerow(row)
         csvFile.close()
@@ -160,10 +157,10 @@ def TakeImages():
 def TrainImages():
     recognizer = cv2.face_LBPHFaceRecognizer.create()#recognizer = cv2.face.LBPHFaceRecognizer_create()#$cv2.createLBPHFaceRecognizer()
     harcascadePath = "haarcascade_frontalface_default.xml"
-    detector =cv2.CascadeClassifier(harcascadePath)
+    _detector =cv2.CascadeClassifier(harcascadePath)
     faces,Id = getImagesAndLabels("TrainingImage")
     recognizer.train(faces, np.array(Id))
-    recognizer.save("TrainingImageLabel\Trainner.yml")
+    recognizer.save("TrainingImageLabel\\Trainner.yml")
     res = "Image Trained"#+",".join(str(f) for f in Id)
     message.configure(text= res)
 
@@ -191,16 +188,16 @@ def getImagesAndLabels(path):
 
 def TrackImages():
     recognizer = cv2.face.LBPHFaceRecognizer_create()#cv2.createLBPHFaceRecognizer()
-    recognizer.read("TrainingImageLabel\Trainner.yml")
+    recognizer.read("trainningData.yml")
     harcascadePath = "haarcascade_frontalface_default.xml"
-    faceCascade = cv2.CascadeClassifier(harcascadePath);    
-    df=pd.read_csv("StudentDetails\StudentDetails.csv")
+    faceCascade = cv2.CascadeClassifier(harcascadePath)  
+    df=pd.read_csv("StudentDetails\\StudentDetails.csv")
     cam = cv2.VideoCapture(0)
     font = cv2.FONT_HERSHEY_SIMPLEX        
     col_names =  ['Id','Name','Date','Time']
     attendance = pd.DataFrame(columns = col_names)    
     while True:
-        ret, im =cam.read()
+        _ret, im =cam.read()
         gray=cv2.cvtColor(im,cv2.COLOR_BGR2GRAY)
         faces=faceCascade.detectMultiScale(gray, 1.2,5)    
         for(x,y,w,h) in faces:
@@ -219,7 +216,7 @@ def TrackImages():
                 tt=str(Id)  
             if(conf > 75):
                 noOfFile=len(os.listdir("ImagesUnknown"))+1
-                cv2.imwrite("ImagesUnknown\Image"+str(noOfFile) + ".jpg", im[y:y+h,x:x+w])            
+                cv2.imwrite("./ImagesUnknown/Image"+str(noOfFile) + ".jpg", im[y:y+h,x:x+w])            
             cv2.putText(im,str(tt),(x,y+h), font, 1,(255,255,255),2)        
         attendance=attendance.drop_duplicates(subset=['Id'],keep='first')    
         cv2.imshow('im',im) 
@@ -229,7 +226,7 @@ def TrackImages():
     date = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
     timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%H:%M:%S')
     Hour,Minute,Second=timeStamp.split(":")
-    fileName="Attendance\Attendance_"+date+"_"+Hour+"-"+Minute+"-"+Second+".csv"
+    fileName="Attendance\\Attendance_"+date+"_"+Hour+"-"+Minute+"-"+Second+".csv"
     attendance.to_csv(fileName,index=False)
     cam.release()
     cv2.destroyAllWindows()

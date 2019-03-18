@@ -1,0 +1,17 @@
+cmake
+imutils
+qrcode
+pyzbar
+pyqrcode
+pyzmq
+pandas
+opencv-python
+opencv-contrib-python
+numpy
+dlib
+pillow
+matplotlib
+scipy
+geopy
+geocoder
+pypng
