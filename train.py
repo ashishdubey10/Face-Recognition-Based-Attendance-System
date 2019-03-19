@@ -160,7 +160,7 @@ def TrainImages():
     _detector =cv2.CascadeClassifier(harcascadePath)
     faces,Id = getImagesAndLabels("TrainingImage")
     recognizer.train(faces, np.array(Id))
-    recognizer.save("TrainingImageLabel\\Trainner.yml")
+    recognizer.save("trainningData.yml")
     res = "Image Trained"#+",".join(str(f) for f in Id)
     message.configure(text= res)
 
