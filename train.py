@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Jun 17 2018
-
-@author: Ashish Kumar
-"""
 
 import tkinter as tk
 from tkinter import Message ,Text
